@@ -1,3 +1,8 @@
-#Private Events
+#EventLite
 
-This is part of the Associations Project in The Odin Project's Ruby on Rails Curriculum. Find it at [http://www.theodinproject.com](http://www.theodinproject.com/ruby-on-rails/).
+Deployed at: [https://eventlite-28189.herokuapp.com/](https://eventlite-28189.herokuapp.com/).
+
+EventLite is a simple event planning demo site built in Ruby on Rails. Create an account with a dummy email address,
+or log in as one of the sample users (e.g. `test@test.com` or `ex@example.com`)
+
+This was built as an exercise for The Odin Project's Ruby on Rails Curriculum. Find it at [http://www.theodinproject.com](http://www.theodinproject.com/ruby-on-rails/).
