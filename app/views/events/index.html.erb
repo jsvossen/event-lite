@@ -1,0 +1,20 @@
+<h1>All Events</h1>
+
+<% if @future_events.any? %>
+
+<h4>Upcoming Events:</h4>
+<%= render "events/event_list", collection: @future_events %>
+
+<% else %>
+	<div align="center">
+		<h4>No events are scheduled.</h4>
+		<p><%= link_to "Create an Event", new_event_path, class: "btn btn-primary" %>
+	</div>
+<% end %>
+
+<% if @past_events.any? %>
+
+<h4>Past Events:</h4>
+<%= render "events/event_list", collection: @past_events %>
+
+<% end %>

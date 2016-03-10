@@ -1,0 +1,28 @@
+<% hide_host ||= false %>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Date</th>
+			<th>Location</th>
+			<% if !hide_host %>
+				<th>Host</th>
+			<% end %>
+			<th>Attending</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% collection.each do |event| %>
+			<tr>
+				<td><%= link_to event.title, event %></td>
+				<td><%= event.formatted_date %></td>
+				<td><%= event.location %></td>
+				<% if !hide_host %>
+					<td><%= link_to event.creator.name, event.creator %></td>
+				<% end %>
+				<td><%= event.attendees.size %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

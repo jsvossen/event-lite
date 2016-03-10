@@ -1,0 +1,26 @@
+<%= form_for @event do |f| %>
+
+	<%= render "shared/error_messages", object: f.object %>
+
+	<%= f.label :title, "Event Title" %>
+	<%= f.text_field :title, class: "form-control" %><br>
+
+	<%= f.label :date %>
+	<div class="input-group date datepicker">
+		<%= f.text_field :date, class: "form-control datepicker" %>
+		<div class="input-group-addon">
+	        <span class="glyphicon glyphicon-calendar"></span>
+	    </div>
+	</div><br>
+
+	<%= f.label :location %>
+	<%= f.text_field :location, class: "form-control" %><br>
+
+	<%= f.label :description %>
+	<%= f.text_area :description, class: "form-control" %><br>
+
+	<%= f.hidden_field :creator_id, value: current_user.id %>
+
+	<%= f.submit class: "btn btn-primary" %>
+
+<% end %>

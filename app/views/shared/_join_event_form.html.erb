@@ -1,0 +1,15 @@
+<% if logged_in? %>
+		
+<div style="text-align: center">
+	<% if !current_user.attending?(@event) %>
+		<%= form_for(@invite) do |f| %>
+			<%= f.hidden_field :attendee_id, value: current_user.id %>
+			<%= f.hidden_field :attended_event_id, value: @event.id %>
+			<%= f.submit "Join Event", class: "btn btn-success" %>
+		<% end %>
+	<% else %>
+		<%= link_to "Leave Event", @invite, method: "delete", class: "btn btn-default" %>
+	<% end %>
+</div>
+
+<% end %>

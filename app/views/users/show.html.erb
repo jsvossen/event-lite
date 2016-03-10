@@ -1,0 +1,37 @@
+<h1><%= @user.name %> <small><%= @user.email %></small></h1>
+
+<% if @created_events.any? %>
+
+	<h4><%= @user == current_user ? "My" : @user.name+"'s" %> Events:</h4>
+	<%= render "events/event_list", collection: @created_events, hide_host: true %>
+
+<% else %>
+
+	<p class="text-muted"><em>
+		<%= @user == current_user ? "You haven't" : @user.name+" hasen't" %> 
+		created any events.
+		<%= link_to "Start an event!", new_event_path if @user == current_user %>
+	</em></p>
+
+<% end %>
+
+<% if @upcoming_events.any? %>
+
+	<h4>Upcoming Events:</h4>
+	<%= render "events/event_list", collection: @upcoming_events %>
+
+<% else %>
+	<% if @user == current_user %>
+		<h4>Attended Events:</h4>
+		<p class="text-muted"><em>
+			You aren't attending any events. <%= link_to "View Events", events_path %>.
+		</em></p>
+	<% end %>
+<% end %>
+
+<% if @past_events.any? %>
+
+	<h4>Past Events:</h4>
+	<%= render "events/event_list", collection: @past_events %>
+
+<% end %>

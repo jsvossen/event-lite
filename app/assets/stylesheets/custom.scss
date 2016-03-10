@@ -1,0 +1,18 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#logo { font-size: 25px; font-weight: bold; }
+
+h1 { text-align: center; margin-bottom: 30px; }
+
+.jumbotron { text-align: center; }
+
+footer {
+	clear: both;
+	padding-top: 20px;
+}
+
+footer a {
+	color: inherit;
+	text-decoration: underline;
+}

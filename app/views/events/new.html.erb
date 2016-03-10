@@ -1,0 +1,14 @@
+<div class="col-md-6 col-md-offset-3">
+
+	<h1>Create New Event</h1>
+	<%= render "events/event_form" %>
+
+	<script type="text/javascript">
+  	$(document).ready(function(){
+    	$('.datepicker').datetimepicker({
+    		minDate: "now",
+    		format: "YYYY-MM-DD h:mm a"
+    	});
+  	});
+	</script>
+</div>

@@ -1,0 +1,19 @@
+<div class="jumbotron">
+
+	<% if logged_in? %>
+		<h1>Hello, <%= current_user.name %>!</h1>
+		<%= link_to "Start an Event", new_event_path, class: "btn btn-success btn-lg" %>
+		<%= link_to "View Your Events", current_user, class: "btn btn-primary btn-lg" %>
+	<% else %>
+		<h1>Event Planning Made Easy</h1>
+		<p>Manage events and invite your friends!</p>
+		<%= link_to "Sign Up", new_user_path, class: "btn btn-primary btn-lg" %>
+		or <%= link_to "Log In", login_path %>
+	<% end %>
+
+</div>
+
+<% if @events.any? %>
+	<h2><% if logged_in? %>Your <% end %>Upcoming Events:</h2>
+	<%= render "events/event_list", collection: @events %>
+<% end %>
