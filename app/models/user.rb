@@ -18,8 +18,16 @@ class User < ActiveRecord::Base
 		end
 	end
 
-	def attending?(event)
+	def invited?(event)
 		attended_events.include?(event)
+	end
+
+	def attending?(event)
+		attended_events.accepted.include?(event)
+	end
+
+	def declined?(event)
+		attended_events.declined.include?(event)
 	end
 
 end

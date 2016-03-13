@@ -1,7 +1,7 @@
 class InvitesController < ApplicationController
 
-	before_action :logged_in_user, only: [:create, :destroy, :index]
-	before_action :correct_user, only: :destroy
+	before_action :logged_in_user, only: [:create, :destroy, :index, :update]
+	before_action :correct_user, only: [:destroy, :update]
 
 	def create
 		@invite = Invite.new(invite_params)
@@ -13,6 +13,21 @@ class InvitesController < ApplicationController
 			redirect_to @invite.attended_event
 		end
 	end 
+
+	def update
+		@invite = Invite.find(params[:id])
+		if @invite.update_attributes(invite_params)
+			if @invite.accepted?
+				flash[:success] = "You are attending #{@invite.attended_event.title}"
+			else
+				flash[:success] = "You decline to attend #{@invite.attended_event.title}"
+			end
+			redirect_to @invite.attended_event
+		else
+			flash[:danger] = "RSVP error"
+			redirect_to @invite.attended_event
+		end
+	end
 
 	def destroy
 		@invite = Invite.find(params[:id])
@@ -32,7 +47,7 @@ class InvitesController < ApplicationController
 	private
 
 		def invite_params
-			params.require(:invite).permit(:attendee_id, :attended_event_id)
+			params.require(:invite).permit(:attendee_id, :attended_event_id, :accepted)
 		end
 
 		def correct_user

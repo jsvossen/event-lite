@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :show]
   resources :events, only: [:new, :create, :show, :index]
-  resources :invites, only: [:create, :destroy, :index]
+  resources :invites, only: [:create, :destroy, :index, :update]
 
   # You can have the root of your site routed with "root"
   root 'static_pages#home'

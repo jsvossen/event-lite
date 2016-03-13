@@ -1,0 +1,24 @@
+<div style="text-align: center">
+	<% if @invite.accepted == nil %><p>You're invited to this event! Will you be attending?</p><% end %>
+	<% if !current_user.attending?(@event) %>
+		<%= form_for(@invite) do |f| %>
+			<%= f.hidden_field :attendee_id, value: current_user.id %>
+			<%= f.hidden_field :attended_event_id, value: @event.id %>
+			<%= f.hidden_field :accepted, value: 1 %>
+			<%= f.submit "Join Event", class: "btn btn-success" %>
+		<% end %>
+		<% if !current_user.declined?(@event) %>
+			<%= form_for(@invite) do |f| %>
+				<%= f.hidden_field :attendee_id, value: current_user.id %>
+				<%= f.hidden_field :accepted, value: 0 %>
+				<%= f.submit "Decline", class: "btn btn-danger" %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<%= form_for(@invite) do |f| %>
+				<%= f.hidden_field :attendee_id, value: current_user.id %>
+				<%= f.hidden_field :accepted, value: 0 %>
+				<%= f.submit "Leave Event", class: "btn btn-default" %>
+			<% end %>
+	<% end %>
+</div>

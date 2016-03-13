@@ -1,17 +1,20 @@
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3 <% if @event.creator == current_user %>my-event<% end %>">
 
 	<h1><%= @event.title %>
 		<br/>
 		<small><%= @event.formatted_date %></small>
 	</h1>
 
-	<% if !@event.private? %>
-		<%= render "shared/join_event_form" %>
-		<br>
-	<% else %>
-		<p class="text-muted" align="center"><em>This event is private. Only invited users my join.</em></p>
-		<br>
+	<% if logged_in? %>
+		<% if !@event.private? %>
+			<%= render "shared/join_event_form" %>
+		<% elsif current_user.invited?(@event) %>
+			<%= render "shared/accept_invite_form" %>
+		<% else %>
+			<p class="text-muted" align="center"><em>This event is private. Only invited users my join.</em></p>
+		<% end %>
 	<% end %>
+	<br>
 
 	<% if !(@event.location.nil? || @event.location.empty?) %>
 		<p><strong>Location:</strong> <%= @event.location %></p>
@@ -24,32 +27,40 @@
 	<p><strong>Hosted by:</strong> <%= link_to @creator.name, @creator %></p>
 
 	<% if @attendees.accepted.any? %>
-		<p><strong>Who's Attending:</strong></p>
-		<ol id="attendees">
-			<% @attendees.accepted.each do |guest| %>
-				<li><%= link_to guest.name, guest %></li>
-			<% end %>
-		</ol>
+		<div class="attendees accepted success">
+			<p><strong>Who's Attending:</strong></p>
+			<ol id="attendees">
+				<% @attendees.accepted.each do |guest| %>
+					<li><%= link_to guest.name, guest %></li>
+				<% end %>
+			</ol>
+		</div>
 	<% end %>
 
 	<% if @event.creator == current_user %>
-		<% if @attendees.declined.any? %>
-			<p><strong>Declined:</strong></p>
-			<ol id="attendees-declined">
-				<% @attendees.declined.each do |guest| %>
-					<li><%= link_to guest.name, guest %></li>
-				<% end %>
-			</ol>
-		<% end %>
 
 		<% if @attendees.pending.any? && @event.creator == current_user %>
-			<p><strong>Pending:</strong></p>
-			<ol id="attendees-declined">
-				<% @attendees.pending.each do |guest| %>
-					<li><%= link_to guest.name, guest %></li>
-				<% end %>
-			</ol>
+			<div class="attendees pending">
+				<p><strong>Pending:</strong></p>
+				<ol id="attendees-declined">
+					<% @attendees.pending.each do |guest| %>
+						<li><%= link_to guest.name, guest %></li>
+					<% end %>
+				</ol>
+			</div>
 		<% end %>
+
+		<% if @attendees.declined.any? %>
+			<div class="attendees declined">
+				<p><strong>Declined:</strong></p>
+				<ol id="attendees-declined">
+					<% @attendees.declined.each do |guest| %>
+						<li><%= link_to guest.name, guest %></li>
+					<% end %>
+				</ol>
+			</div>
+		<% end %>
+		
 	<% end %>
 
 </div>

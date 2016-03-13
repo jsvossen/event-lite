@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
 
 	scope :upcoming, -> { where("date >= ?", Time.now).order(date: :asc) }
 	scope :past, -> { where("date < ?", Time.now).order(date: :desc) }
+	scope :closed, -> { where(private: true) }
+	scope :open, -> { where(private: false) }
 
 	validates :title, presence: true
 	validates :date, presence: true

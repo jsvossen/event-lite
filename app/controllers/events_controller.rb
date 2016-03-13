@@ -9,6 +9,8 @@ class EventsController < ApplicationController
 	def create
 		@event = current_user.events.build(event_params)
 		if @event.save
+			host_invite = @event.invites.build(attendee_id: @event.creator.id)
+			flash[:danger] = "Error inviting host" unless host_invite.save
 			flash[:success] = "Event created!"
 			redirect_to @event
 		else

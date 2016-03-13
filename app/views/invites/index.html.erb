@@ -15,6 +15,6 @@
 <% end %>
 
 <% if @declined_events.any? %>
-	<h4>Declined Invitations:></h4>
+	<h4>Declined Invitations:</h4>
 	<%= render "events/event_list", collection: @declined_events %>
 <% end %>

@@ -55,14 +55,31 @@ users.each do |user|
 		title = event_prefix.sample + event.sample
 		date = time_rand(Time.local(2015, 1, 1), Time.local(2017, 12, 31))
 		title = title+"!" if (date.year+date.month+date.day)%3 == 0
-		events << user.events.create!( title: title, date: date, description: lorem.sample, location: location.sample )
+		open_invite = rand.round == 1 ? true : false
+		e = user.events.create!( title: title, date: date, description: lorem.sample, location: location.sample, private: open_invite )
+	end
+	user.events.closed.each do |private_evt|
+		private_evt.invites.create!(attendee_id: user.id, accepted: true)
+		n = count_range.sample
+		user_subset = n%2 == 0 ? users[0..n] : users[n..-1]
+		accept = rand(3)
+		if accept == 0
+			accept = nil
+		else
+			accept = accept == 1 ? true : false
+		end
+		user_subset.each do |user|
+			next if user.invited?(private_evt)
+			private_evt.invites.create!(attendee_id: user.id, accepted: accept)
+		end
 	end
 end
 
-events.each do |event|
+Event.open.each do |evt|
 	n = count_range.sample
 	user_subset = n%2 == 0 ? users[0..n] : users[n..-1]
 	user_subset.each do |user|
-		event.invites.create!(attendee_id: user.id)
+		next if user.invited?(evt)
+		evt.invites.create!(attendee_id: user.id, accepted: true)
 	end
 end

@@ -10,7 +10,20 @@ h1 { text-align: center; margin-bottom: 30px; }
 .checkbox.inline { margin-left: 20px; }
 label .text-muted { font-weight: normal; }
 
+form.edit_invite { display: inline-block; }
+
 .table-striped > tbody > tr:nth-of-type(even) { background: #fff; }
+
+.my-event .attendees {
+	width: 30%;
+	float: left;
+	margin-right: 1%;
+	padding: 10px;
+}
+
+.my-event .attendees.accepted { background: #dff0d8 }
+.my-event .attendees.declined { background: #eee }
+.my-event .attendees.pending { background: #faebcc }
 
 footer {
 	clear: both;
