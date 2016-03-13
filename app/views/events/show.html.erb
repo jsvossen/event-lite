@@ -5,8 +5,13 @@
 		<small><%= @event.formatted_date %></small>
 	</h1>
 
-	<%= render "shared/join_event_form" %>
-	<br>
+	<% if !@event.private? %>
+		<%= render "shared/join_event_form" %>
+		<br>
+	<% else %>
+		<p class="text-muted" align="center"><em>This event is private. Only invited users my join.</em></p>
+		<br>
+	<% end %>
 
 	<% if !(@event.location.nil? || @event.location.empty?) %>
 		<p><strong>Location:</strong> <%= @event.location %></p>

@@ -19,8 +19,15 @@
 	<%= f.label :description %>
 	<%= f.text_area :description, class: "form-control" %><br>
 
+	<%= f.label :private, class: "checkbox inline" do %>
+        <%= f.check_box :private %>
+        <span>Make this event private</span><br>
+        <small class="text-muted"><em>Private events can only be joined by users you have invited.</em></small>
+      <% end %>
+
 	<%= f.hidden_field :creator_id, value: current_user.id %>
 
+	<br>
 	<%= f.submit class: "btn btn-primary" %>
 
 <% end %>
