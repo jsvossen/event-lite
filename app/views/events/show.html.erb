@@ -23,13 +23,33 @@
 
 	<p><strong>Hosted by:</strong> <%= link_to @creator.name, @creator %></p>
 
-	<% if @attendees.any? %>
+	<% if @attendees.accepted.any? %>
 		<p><strong>Who's Attending:</strong></p>
 		<ol id="attendees">
-			<% @attendees.each do |guest| %>
+			<% @attendees.accepted.each do |guest| %>
 				<li><%= link_to guest.name, guest %></li>
 			<% end %>
 		</ol>
+	<% end %>
+
+	<% if @event.creator == current_user %>
+		<% if @attendees.declined.any? %>
+			<p><strong>Declined:</strong></p>
+			<ol id="attendees-declined">
+				<% @attendees.declined.each do |guest| %>
+					<li><%= link_to guest.name, guest %></li>
+				<% end %>
+			</ol>
+		<% end %>
+
+		<% if @attendees.pending.any? && @event.creator == current_user %>
+			<p><strong>Pending:</strong></p>
+			<ol id="attendees-declined">
+				<% @attendees.pending.each do |guest| %>
+					<li><%= link_to guest.name, guest %></li>
+				<% end %>
+			</ol>
+		<% end %>
 	<% end %>
 
 </div>

@@ -10,7 +10,17 @@ class Event < ActiveRecord::Base
 	belongs_to :creator, :class_name => "User"
 	
 	has_many :invites, :foreign_key => "attended_event_id", dependent: :destroy
-	has_many :attendees, :through => :invites
+	has_many :attendees, :through => :invites do
+		def accepted
+			where("invites.accepted = ?", true )
+		end
+		def declined
+			where("invites.accepted = ?", false )
+		end
+		def pending
+			where("invites.accepted IS NULL" )
+		end
+	end
 
 	def formatted_date
 		date.strftime("%b %d, %Y at %I:%M%p")

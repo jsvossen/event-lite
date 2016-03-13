@@ -21,7 +21,7 @@
 				<% if !hide_host %>
 					<td><%= link_to event.creator.name, event.creator %></td>
 				<% end %>
-				<td><%= event.attendees.size %></td>
+				<td><%= event.attendees.accepted.size %></td>
 			</tr>
 		<% end %>
 	</tbody>

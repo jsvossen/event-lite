@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313145405) do
+ActiveRecord::Schema.define(version: 20160313151257) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title",                       null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160313145405) do
     t.integer  "attended_event_id", null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.boolean  "accepted"
   end
 
   add_index "invites", ["attended_event_id"], name: "index_invites_on_attended_event_id"
