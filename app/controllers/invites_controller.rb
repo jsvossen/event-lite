@@ -1,6 +1,6 @@
 class InvitesController < ApplicationController
 
-	before_action :logged_in_user, only: [:create, :destroy]
+	before_action :logged_in_user, only: [:create, :destroy, :index]
 	before_action :correct_user, only: :destroy
 
 	def create
@@ -20,6 +20,12 @@ class InvitesController < ApplicationController
 		@invite.destroy
 		flash[:success] = "You are no longer attending #{event.title}"
 		redirect_to event
+	end
+
+	def index
+		@pending_events = current_user.attended_events.pending.upcoming
+		@accepted_events = current_user.attended_events.accepted.upcoming
+		@declined_events = current_user.attended_events.declined.upcoming
 	end
 
 

@@ -10,6 +10,8 @@ h1 { text-align: center; margin-bottom: 30px; }
 .checkbox.inline { margin-left: 20px; }
 label .text-muted { font-weight: normal; }
 
+.table-striped > tbody > tr:nth-of-type(even) { background: #fff; }
+
 footer {
 	clear: both;
 	padding-top: 20px;

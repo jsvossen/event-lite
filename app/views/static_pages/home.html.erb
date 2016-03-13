@@ -4,6 +4,9 @@
 		<h1>Hello, <%= current_user.name %>!</h1>
 		<%= link_to "Start an Event", new_event_path, class: "btn btn-success btn-lg" %>
 		<%= link_to "View Your Events", current_user, class: "btn btn-primary btn-lg" %>
+		<% if current_user.invites.pending.any? %>
+			<%= link_to "Invitations (#{current_user.attended_events.pending.upcoming.count})", invites_path, class: "btn btn-warning btn-lg" %>
+		<% end %>
 	<% else %>
 		<h1>Event Planning Made Easy</h1>
 		<p>Manage events and invite your friends!</p>

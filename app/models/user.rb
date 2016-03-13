@@ -6,7 +6,17 @@ class User < ActiveRecord::Base
 	has_many :events, :foreign_key => "creator_id", dependent: :destroy
 
 	has_many :invites, :foreign_key => "attendee_id", dependent: :destroy
-	has_many :attended_events, :through => :invites
+	has_many :attended_events, :through => :invites do
+		def accepted
+			where("invites.accepted = ?", true )
+		end
+		def declined
+			where("invites.accepted = ?", false )
+		end
+		def pending
+			where("invites.accepted IS NULL" )
+		end
+	end
 
 	def attending?(event)
 		attended_events.include?(event)
