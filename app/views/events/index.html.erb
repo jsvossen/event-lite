@@ -7,7 +7,7 @@
 			<h4 class="panel-title">Upcoming Events:</h4>
 		</div>
 		<div class="panel-body">
-			<%= render "events/event_list", collection: @future_events %>
+			<%= render "events/event_list", collection: @future_events, show_status: true %>
 		</div>
 	</div>
 <% else %>

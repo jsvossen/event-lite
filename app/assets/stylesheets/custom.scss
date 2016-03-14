@@ -14,12 +14,16 @@ form.edit_invite { display: inline-block; }
 
 .table-striped > tbody > tr:nth-of-type(even) { background: #fff; }
 
+tr.text-muted a { color: inherit; }
+
 .my-event .attendees {
-	width: 30%;
+	width: 32%;
 	float: left;
 	margin-right: 1%;
 	padding: 10px;
 }
+
+.attendees ol { padding-left: 25px; }
 
 .my-event .attendees.accepted { background: #dff0d8 }
 .my-event .attendees.declined { background: #eee }

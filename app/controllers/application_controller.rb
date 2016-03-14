@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :joinable?
 
   def log_in(user)
   	session[:user_id] = user.id
@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
   def log_out
   	session.delete(:user_id)
   	current_user = nil
+  end
+
+  # Can event be joined by current user? 
+  # Returns true if event is public or if user is invited
+  def joinable?(event)
+    !event.private? || event.attendees.include?(current_user)
   end
 
   private

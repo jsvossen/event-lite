@@ -1,4 +1,6 @@
-<% hide_host ||= false %>
+<% hide_host ||= false 
+   show_status ||= false
+%>
 
 <table class="table table-striped">
 	<thead>
@@ -14,7 +16,7 @@
 	</thead>
 	<tbody>
 		<% collection.each do |event| %>
-			<tr>
+			<tr<% if show_status && !joinable?(event) %> class="text-muted"<% end %>>
 				<td><%= link_to event.title, event %></td>
 				<td><%= event.formatted_date %></td>
 				<td><%= event.location %></td>
