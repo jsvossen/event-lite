@@ -18,14 +18,17 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	# is user invited to event?
 	def invited?(event)
 		attended_events.include?(event)
 	end
 
+	# is user attending the event (accepted invite)?
 	def attending?(event)
 		attended_events.accepted.include?(event)
 	end
 
+	# did user decline event invite?
 	def declined?(event)
 		attended_events.declined.include?(event)
 	end

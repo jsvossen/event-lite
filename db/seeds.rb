@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# create users
 users = [ User.create!(name:  "Ima Tester", email: "test@test.com"),
 		User.create!(name:  "Foo Bar", email: "foo@bar.com"),
 		User.create!(name:  "Jane Smith", email: "jsmith@example.com"),
@@ -19,10 +20,12 @@ users = [ User.create!(name:  "Ima Tester", email: "test@test.com"),
 
 count_range = (0..6).to_a
 
+# generate random date
 def time_rand from = 0.0, to = Time.now
   Time.at(from + rand * (to.to_f - from.to_f))
 end
 
+# generate random event content
 event_prefix =  [ "", "", "", "", "", "", "", "", "", "", "", "", "", "",
 				 "My ", "Someone's ", "Another ", "Awesome ", "Uptown ",
 				"Cool ", "Extreme ", "Generic ", "Open ", "Local ",
@@ -47,8 +50,7 @@ location = [ "", "", "", "123 Main Street", "Uptown", "Downtown", "Midtown",
 	"Town Hall", "987 Broadway", "Convention Center", "The Red Room", "Tea House", 
 	"My Basement", "The Park", "546 Penny Lane", "Our Backyard", "", "", "" ]
 
-events = []
-
+# each user creats a random number of public and private events
 users.each do |user|
 	n = count_range[1..3].sample
 	n.times do
@@ -58,8 +60,11 @@ users.each do |user|
 		open_invite = rand.round == 1 ? true : false
 		e = user.events.create!( title: title, date: date, description: lorem.sample, location: location.sample, private: open_invite )
 	end
+	# generate invites for private events
 	user.events.closed.each do |private_evt|
+		# attend own event
 		private_evt.invites.create!(attendee_id: user.id, accepted: true)
+		# invite random users, who randomly accept
 		n = count_range.sample
 		user_subset = n%2 == 0 ? users[0..n] : users[n..-1]
 		accept = rand(3)
@@ -75,6 +80,7 @@ users.each do |user|
 	end
 end
 
+# randomly invite users to public events
 Event.open.each do |evt|
 	n = count_range.sample
 	user_subset = n%2 == 0 ? users[0..n] : users[n..-1]

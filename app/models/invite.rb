@@ -11,6 +11,7 @@ class Invite < ActiveRecord::Base
 	belongs_to :attended_event, :class_name => "Event"
 
 
+	# who created the invite? Attentee on public events, event creator on private events.
 	def author
 		attended_event.private? ? attended_event.creator : attendee
 	end

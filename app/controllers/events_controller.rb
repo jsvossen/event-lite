@@ -9,8 +9,11 @@ class EventsController < ApplicationController
 	def create
 		@event = current_user.events.build(event_params)
 		if @event.save
-			host_invite = @event.invites.build(attendee_id: @event.creator.id)
-			flash[:danger] = "Error inviting host" unless host_invite.save
+			# invite creator if event is private
+			if @event.private?
+				host_invite = @event.invites.build(attendee_id: @event.creator.id)
+				flash[:danger] = "Error inviting host" unless host_invite.save
+			end
 			flash[:success] = "Event created!"
 			redirect_to @event
 		else
@@ -21,8 +24,10 @@ class EventsController < ApplicationController
 	def show
 		@event = Event.find(params[:id])
 		@creator = User.find(@event.creator_id)
+		# existing or new invite for current user
 		@invite = @event.invites.where(attendee_id: current_user.id).first || Invite.new if logged_in?
-		@invite_user = Invite.new if logged_in? && @creator == current_user
+		# empty invite for private event creator to add attendees
+		@invite_user = Invite.new if logged_in? && @creator == current_user && @event.private?
 		@attendees = @event.attendees
 	end
 
