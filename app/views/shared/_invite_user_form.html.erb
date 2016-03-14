@@ -1,0 +1,7 @@
+<%= form_for(@invite_user, :html => {class: "form-inline"}) do |f| %>
+	<div class="form-group">
+		<%= email_field_tag :guest_email, nil, placeholder: 'User Email', class: "form-control" %><br>
+		<%= f.hidden_field :attended_event_id, value: @event.id %>
+	</div>
+	<%= f.submit "Invite User", class: "btn btn-default" %>
+<% end %>

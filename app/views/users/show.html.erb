@@ -2,8 +2,14 @@
 
 <% if @created_events.any? %>
 
-	<h4><%= @user == current_user ? "My" : @user.name+"'s" %> Events:</h4>
-	<%= render "events/event_list", collection: @created_events, hide_host: true %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title"><%= @user == current_user ? "My" : @user.name+"'s" %> Events:</h4>
+		</div>
+		<div class="panel-body">
+			<%= render "events/event_list", collection: @created_events, hide_host: true %>
+		</div>
+	</div>
 
 <% else %>
 
@@ -17,8 +23,14 @@
 
 <% if @upcoming_events.any? %>
 
-	<h4>Upcoming Events:</h4>
-	<%= render "events/event_list", collection: @upcoming_events %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Upcoming Events:</h4>
+		</div>
+		<div class="panel-body">
+			<%= render "events/event_list", collection: @upcoming_events %>
+		</div>
+	</div>
 
 <% else %>
 	<% if @user == current_user %>
@@ -31,7 +43,13 @@
 
 <% if @past_events.any? %>
 
-	<h4>Past Events:</h4>
-	<%= render "events/event_list", collection: @past_events %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Past Events:</h4>
+		</div>
+		<div class="panel-body">
+			<%= render "events/event_list", collection: @past_events %>
+		</div>
+	</div>
 
 <% end %>

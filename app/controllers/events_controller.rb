@@ -22,6 +22,7 @@ class EventsController < ApplicationController
 		@event = Event.find(params[:id])
 		@creator = User.find(@event.creator_id)
 		@invite = @event.invites.where(attendee_id: current_user.id).first || Invite.new if logged_in?
+		@invite_user = Invite.new if logged_in? && @creator == current_user
 		@attendees = @event.attendees
 	end
 

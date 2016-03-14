@@ -10,6 +10,7 @@ class Invite < ActiveRecord::Base
 	belongs_to :attendee, :class_name => "User"
 	belongs_to :attended_event, :class_name => "Event"
 
+
 	def author
 		attended_event.private? ? attended_event.creator : attendee
 	end

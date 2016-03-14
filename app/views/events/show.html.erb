@@ -26,6 +26,23 @@
 
 	<p><strong>Hosted by:</strong> <%= link_to @creator.name, @creator %></p>
 
+	<% if @event.creator == current_user %>
+		<% if @event.private? %>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Invite a user to attend:</h4>
+				</div>
+				<div class="panel-body">
+					<%= render "shared/invite_user_form" %>
+					<small class="text-muted"><em>Event is private. Only invited users may join.</small>
+				</div>
+			</div>
+		<% else %>
+			<br>
+			<p class="text-muted"><em>Event is public. Anyone may join.</p>
+		<% end %>
+	<% end %>
+
 	<% if @attendees.accepted.any? %>
 		<div class="attendees accepted success">
 			<p><strong>Who's Attending:</strong></p>

@@ -1,20 +1,38 @@
 <h1>Your Upcoming Invitations</h1>
 
 <% if @pending_events.any? %>
-<div class="alert alert-warning">
-	<h3>You have <%= pluralize(@pending_events.count, "invitation", "invitations") %> pending:</h3>
-	<%= render "events/event_list", collection: @pending_events %>
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			You have <%= pluralize(@pending_events.count, "invitation", "invitations") %> pending:
+		</h4>
+	</div>
+	<div class="panel-body">
+		<%= render "events/event_list", collection: @pending_events %>
+	</div>
 </div>
 <% else %>
 	<p class="text-muted">You have no pending invitations.</p>
 <% end %>
 
 <% if @accepted_events.any? %>
-	<h4>Accepted Invitations:</h4>
-	<%= render "events/event_list", collection: @accepted_events %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Accepted Invitations:</h4>
+		</div>
+		<div class="panel-body">
+			<%= render "events/event_list", collection: @accepted_events %>
+		</div>
+	</div>
 <% end %>
 
 <% if @declined_events.any? %>
-	<h4>Declined Invitations:</h4>
-	<%= render "events/event_list", collection: @declined_events %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Declined Invitations:</h4>
+		</div>
+		<div class="panel-body">
+			<%= render "events/event_list", collection: @declined_events %>
+		</div>
+	</div>
 <% end %>

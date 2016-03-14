@@ -5,11 +5,26 @@ class InvitesController < ApplicationController
 
 	def create
 		@invite = Invite.new(invite_params)
+		if params[:guest_email] 
+			user = User.find_by_email(params[:guest_email] )
+			if user
+				if user.invited?(@invite.attended_event)
+					flash[:danger] = "#{user.name} is already invited."
+					redirect_to @invite.attended_event and return
+				end
+				@invite.attendee = user
+			else
+				flash[:danger] = "User #{params[:guest_email]} not found."
+				redirect_to @invite.attended_event and return
+			end
+		end
 		if @invite.save
-			flash[:success] = "You are attending #{@invite.attended_event.title}"
+			flash[:success] = params[:guest_email] ? "Invitation sent to #{@invite.attendee.name}." :
+				"You are attending #{@invite.attended_event.title}"
 			redirect_to @invite.attended_event
 		else
-			flash[:danger] = "RSVP error"
+			errors = @invite.errors.full_messages.join(". ")
+			flash[:danger] = "RSVP error: #{errors}"
 			redirect_to @invite.attended_event
 		end
 	end 

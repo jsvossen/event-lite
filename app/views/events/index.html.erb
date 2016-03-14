@@ -2,9 +2,14 @@
 
 <% if @future_events.any? %>
 
-<h4>Upcoming Events:</h4>
-<%= render "events/event_list", collection: @future_events %>
-
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Upcoming Events:</h4>
+		</div>
+		<div class="panel-body">
+			<%= render "events/event_list", collection: @future_events %>
+		</div>
+	</div>
 <% else %>
 	<div align="center">
 		<h4>No events are scheduled.</h4>
@@ -14,7 +19,13 @@
 
 <% if @past_events.any? %>
 
-<h4>Past Events:</h4>
-<%= render "events/event_list", collection: @past_events %>
+<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Past Events:</h4>
+		</div>
+		<div class="panel-body">
+			<%= render "events/event_list", collection: @past_events %>
+		</div>
+	</div>
 
 <% end %>
